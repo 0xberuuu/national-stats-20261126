@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>National Statistics — Republic of Nusantara</title>
+<meta name="description" content="Official statistics of the fictional Republic of Nusantara: population, economy, labour, prices and regions.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">N</div>
+      <div>
+        <h1>National Statistics Office</h1>
+        <p>Republic of Nusantara &middot; Official statistics, open to all</p>
+      </div>
+    </div>
+    <nav class="mainnav" aria-label="Main sections">
+      <a href="#/overview" data-page="overview">Overview</a>
+      <a href="#/population" data-page="population">Population</a>
+      <a href="#/economy" data-page="economy">Economy</a>
+      <a href="#/labour" data-page="labour">Labour</a>
+      <a href="#/prices" data-page="prices">Prices</a>
+      <a href="#/regions" data-page="regions">Regions</a>
+      <a href="#/methodology" data-page="methodology">Methodology</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="controls" role="group" aria-label="Reference year">
+    <div>
+      <label for="year-select">Reference year</label>
+      <select id="year-select"></select>
+    </div>
+    <span style="font-size:13px;color:var(--muted)">Figures update across the whole site when you change the year.</span>
+  </div>
+
+  <!-- OVERVIEW -->
+  <section class="page" id="page-overview" aria-label="Overview">
+    <h2>Nusantara in <span id="ov-year-label">2025</span></h2>
+    <p class="lede">A snapshot of the Republic of Nusantara: 68.4 million people across six provinces, an economy of 412.6 billion nusara, and inflation inside the 2–4% target band.</p>
+    <div class="grid kpis">
+      <div class="card kpi" id="kpi-pop"><div class="label">Population</div><div class="value">–</div><div class="sub">–</div></div>
+      <div class="card kpi" id="kpi-gdp"><div class="label">GDP</div><div class="value">–</div><div class="sub">–</div></div>
+      <div class="card kpi" id="kpi-inf"><div class="label">Inflation (CPI)</div><div class="value">–</div><div class="sub">–</div></div>
+      <div class="card kpi" id="kpi-unemp"><div class="label">Unemployment</div><div class="value">–</div><div class="sub">–</div></div>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3>Population, 2019–2025</h3>
+        <div id="ov-pop-chart"></div>
+        <p class="chart-note">Resident population at 1 January, millions.</p>
+      </div>
+      <div class="card">
+        <h3>Growth and inflation, 2019–2025</h3>
+        <div id="ov-gdp-chart"></div>
+        <p class="chart-note">Real GDP growth (teal) and CPI inflation (amber), percent per year.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Headline findings</h3>
+      <p id="ov-note"></p>
+      <p>Services now produce 54.2% of GDP. The trade surplus reached 8.3 billion nusara in 2025, and public debt stands at 41.2% of GDP. Explore the sections above for the full breakdowns.</p>
+      <p><a href="#/population">Population &rarr;</a> &nbsp; <a href="#/economy">Economy &rarr;</a> &nbsp; <a href="#/regions">Regions &rarr;</a></p>
+    </div>
+  </section>
+
+  <!-- POPULATION -->
+  <section class="page" id="page-population" aria-label="Population">
+    <h2>Population <span id="pop-year-label">2025</span></h2>
+    <p class="lede">Nusantara's population grows by about 0.5 million people a year. A third of the population is under 25, and 58.3% live in towns and cities.</p>
+    <div class="card">
+      <h3>Total population</h3>
+      <p style="font-size:26px;font-weight:800;color:var(--navy)" id="pop-total">–</p>
+      <p id="pop-change"></p>
+    </div>
+    <div class="card">
+      <h3>Population by age group, 2025</h3>
+      <div id="pop-age-chart"></div>
+      <p class="chart-note">Millions of people. The 25–44 group is the largest, at 20.5 million.</p>
+      <table id="pop-age-table">
+        <thead><tr><th>Age group</th><th>People (m)</th><th>Share</th></tr></thead>
+        <tbody></tbody>
+        <tfoot><tr><td>Total</td><td>68.4</td><td>100.0%</td></tr></tfoot>
+      </table>
+      <p style="margin-top:12px"><button class="ghost" id="pop-dl" type="button">Download table (CSV)</button></p>
+    </div>
+  </section>
+
+  <!-- ECONOMY -->
+  <section class="page" id="page-economy" aria-label="Economy">
+    <h2>Economy <span id="eco-year-label">2025</span></h2>
+    <p class="lede">GDP reached 412.6 billion nusara in 2025, growing 2.0% in real terms. Use the tabs to switch between output, sectors and trade.</p>
+    <div class="grid kpis">
+      <div class="card kpi"><div class="label">GDP</div><div class="value" id="eco-gdp">–</div><div class="sub">Current prices, bn NSR</div></div>
+      <div class="card kpi"><div class="label">Real growth</div><div class="value" id="eco-growth">–</div><div class="sub">Constant 2020 prices</div></div>
+      <div class="card kpi"><div class="label">Trade balance</div><div class="value" id="eco-trade">–</div><div class="sub" id="eco-trade-sub">–</div></div>
+    </div>
+    <div class="card">
+      <div class="tabs" role="tablist">
+        <button type="button" class="active" data-tab="tab-gdp">GDP over time</button>
+        <button type="button" data-tab="tab-sectors">Sectors</button>
+        <button type="button" data-tab="tab-trade">Trade</button>
+      </div>
+      <div class="tabpane active" id="tab-gdp">
+        <h3>GDP, 2019–2025</h3>
+        <div id="eco-gdp-chart"></div>
+        <p class="chart-note">Billion nusara, current prices. The 2020 fall of 1.9% in real terms was the pandemic year.</p>
+      </div>
+      <div class="tabpane" id="tab-sectors">
+        <h3>GDP by sector, 2025</h3>
+        <div id="eco-sector-chart" style="max-width:320px;margin:0 auto"></div>
+        <table id="eco-sector-table">
+          <thead><tr><th>Sector</th><th>Share of GDP</th><th>What it covers</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="tabpane" id="tab-trade">
+        <h3>Exports, imports and balance, 2019–2025</h3>
+        <table id="eco-trade-table">
+          <thead><tr><th>Year</th><th>Exports (bn NSR)</th><th>Imports (bn NSR)</th><th>Balance (bn NSR)</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <p style="margin-top:12px"><button class="ghost" id="eco-dl" type="button">Download trade table (CSV)</button></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LABOUR -->
+  <section class="page" id="page-labour" aria-label="Labour">
+    <h2>Labour <span id="lab-year-label">2025</span></h2>
+    <p class="lede">Unemployment has fallen every year since the 2020 peak of 7.2%, reaching 5.4% in 2025, while participation has recovered to 68.6%.</p>
+    <div class="grid kpis">
+      <div class="card kpi"><div class="label">Unemployment</div><div class="value" id="lab-unemp">–</div><div class="sub">% of labour force</div></div>
+      <div class="card kpi"><div class="label">Participation</div><div class="value" id="lab-part">–</div><div class="sub">% of working-age population</div></div>
+      <div class="card kpi"><div class="label">Employed</div><div class="value" id="lab-employed">–</div><div class="sub">Millions of people</div></div>
+    </div>
+    <div class="card">
+      <h3>Unemployment and participation, 2019–2025</h3>
+      <div id="lab-chart"></div>
+      <p class="chart-note">Unemployment (red) and labour force participation (teal, dashed), percent.</p>
+    </div>
+    <div class="card">
+      <h3>Employment by sector, 2025</h3>
+      <table id="lab-emp-table">
+        <thead><tr><th>Sector</th><th>Share of employment</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PRICES -->
+  <section class="page" id="page-prices" aria-label="Prices">
+    <h2>Prices and inflation <span id="pri-year-label">2025</span></h2>
+    <p class="lede">Consumer prices rose 3.1% on average in 2025, inside the 2–4% target band for the second year running. Food prices rose fastest, at 3.8%.</p>
+    <div class="card">
+      <h3>Annual CPI inflation</h3>
+      <p style="font-size:26px;font-weight:800;color:var(--navy)" id="pri-cpi">–</p>
+      <p>Annual average, all items. Base year 2020 = 100.</p>
+    </div>
+    <div class="card">
+      <h3>Monthly inflation through 2025</h3>
+      <div id="pri-monthly-chart"></div>
+      <p class="chart-note">Percent change on the same month a year earlier. Inflation eased from 3.6% in January to 2.9% in August, then steadied at 3.1%.</p>
+    </div>
+    <div class="card">
+      <h3>CPI basket, 2025</h3>
+      <table id="pri-cpi-table">
+        <thead><tr><th>Group</th><th>Weight (%)</th><th>Inflation (%)</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p style="margin-top:12px"><button class="ghost" id="pri-dl" type="button">Download table (CSV)</button></p>
+    </div>
+  </section>
+
+  <!-- REGIONS -->
+  <section class="page" id="page-regions" aria-label="Regions">
+    <h2>Regions</h2>
+    <p class="lede">Six provinces, from the dense capital province of Kertanegara (412 people per km&sup2;) to the wide-open Tanjung Raya (41 per km&sup2;).</p>
+    <div class="controls">
+      <div>
+        <label for="region-select">Show province</label>
+        <select id="region-select">
+          <option value="all">All six provinces</option>
+          <option>Kertanegara</option>
+          <option>Bantala</option>
+          <option>Suryapura</option>
+          <option>Wirasaba</option>
+          <option>Mandalika</option>
+          <option>Tanjung Raya</option>
+        </select>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Population by province, 2025</h3>
+      <div id="reg-chart"></div>
+      <p class="chart-note">Millions of people. Kertanegara alone holds 18.6 million, more than a quarter of the country.</p>
+    </div>
+    <div class="card">
+      <h3>Provincial indicators, 2025</h3>
+      <table id="reg-table">
+        <thead><tr><th>Province</th><th>Capital</th><th>Pop. (m)</th><th>GDP share</th><th>Unempl.</th><th>Density /km&sup2;</th><th>Urban</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p class="chart-note" id="reg-total"></p>
+      <p><button class="ghost" id="reg-dl" type="button">Download table (CSV)</button></p>
+    </div>
+  </section>
+
+  <!-- METHODOLOGY -->
+  <section class="page" id="page-methodology" aria-label="Methodology and about">
+    <h2>Methodology and about</h2>
+    <p class="lede">How these statistics are made, and what this site is.</p>
+    <div class="notice"><strong>A fictional country.</strong> The Republic of Nusantara does not exist. Every figure on this site is invented for demonstration, and no real statistics office's brand, text or images are used.</div>
+    <div id="method-list"></div>
+    <div class="card">
+      <h3>Release information</h3>
+      <p>Latest release: 15 November 2026. Next population release: January 2027. Next GDP release: February 2027.</p>
+      <p>Contact: statistics office, Kertanegara City (fictional). This demonstration site works entirely offline — it makes no network requests.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>National Statistics Office — Republic of Nusantara</strong> (fictional demonstration site).</p>
+    <p>All figures are invented. Sources: annual household survey, business register, customs records and administrative data. Licensed under the MIT License — see LICENSE in the repository.</p>
+  </div>
+</footer>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
